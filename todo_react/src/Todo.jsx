@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import InputTodo from "./components/InputTodo";
+import { IncompleteTodos } from "./components/IncompleteTodos";
+import { CompleteTodos } from "./components/CompleteTodos";
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
@@ -37,41 +40,17 @@ export const Todo = () => {
   };
   return (
     <>
-      <div>
-        <input
-          placeholder="Enter Todo"
-          value={todoText}
-          onChange={onChangeTodoText}
-        />
-        <button onClick={onclickAdd}>Add</button>
-      </div>
-      <div>
-        <p>Incomplited Todo</p>
-        <ul>
-          {incompleteTodos.map((todo, index) => {
-            return (
-              <li key={todo}>
-                <p>{todo}</p>
-                <button onClick={() => onClickComplete(index)}>Complete</button>
-                <button onClick={() => onClickDelete(index)}>Delete</button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      <div>
-        <p>Complited Todo</p>
-        <ul>
-          {completeTodos.map((todo, index) => {
-            return (
-              <li key={todo}>
-                <p>{todo}</p>
-                <button onClick={() => onClickBack(index)}>Back</button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <InputTodo
+        todoText={todoText}
+        onChange={onChangeTodoText}
+        onClick={onclickAdd}
+      />
+      <IncompleteTodos
+        todos={incompleteTodos}
+        onClickComplete={onClickComplete}
+        onClickDelete={onClickDelete}
+      />
+      <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
     </>
   );
 };
